@@ -1,0 +1,66 @@
+// consignment-service/proto/consignment/consignment.proto
+syntax = "proto3";
+
+package go.micro.srv.consignment;
+
+service MntService {
+  rpc CreateConsignment(Consignment) returns (Response) {}
+  rpc GetConsignments(GetRequest) returns (Response) {}
+  rpc GetWild(Wild) returns (Response) {}
+  rpc SetAmount(Amount) returns (RplAmount) {}
+}
+
+message Consignment {
+  string id = 1;
+  string description = 2;
+  int32 weight = 3;
+  repeated Container containers = 4;
+  string vessel_id = 5;
+}
+
+message Container {
+  string id = 1;
+  string customer_id = 2;
+  string origin = 3;
+  string user_id = 4;
+}
+
+message Wild {
+    string wild = 1;
+    int32 usrid = 2;
+    int32 limit = 3;
+}
+
+message Amount {
+    string am = 1;
+}
+message RplAmount {
+    string status = 1;
+}
+
+message GetRequest {}
+
+message Response {
+  bool created = 1;
+  Consignment consignment = 2;
+  repeated Consignment consignments = 3;
+  string wild = 4;
+  repeated List lists = 5;
+  repeated Tag losstags = 6;
+  repeated Tag proftags = 7;
+}
+
+message List  {
+  int32 ListId = 1;
+  string Date = 2;
+  int32 Summ = 3;
+  bool Pl = 4;
+  int32 UsrId = 5;
+  string Tags = 6;
+  string Set = 7;
+}
+
+message Tag  {
+  string Tag = 1;
+  int32 Sort = 2;
+}
